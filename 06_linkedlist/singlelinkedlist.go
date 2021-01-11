@@ -1,5 +1,10 @@
 package _6_linkedlist
 
+import (
+	"fmt"
+	"go/format"
+)
+
 /*
 单链表基本操作
 */
@@ -106,5 +111,36 @@ func (this *LinkedList) DeleteNode(p *ListNode) bool {
 	if p == nil {
 		return false
 	}
+	cur := this.head.next
+	pre := this.head
+
+	if cur == nil {
+		return false
+	}
 	
+	for nil != cur {
+		if cur == p {
+			break
+		}
+		pre = cur
+		cur = cur.next
+	}
+	pre.next = p.next
+	p = nil
+	this.length--
+	return true
+}
+
+// 打印链表
+func (this *LinkedList) Print() {
+	cur := this.head.next
+	format := ""
+	for nil != cur {
+		format += fmt.Sprintf("%+v", cur.GetValue())
+		cur = cur.next
+		if nil != cur {
+			format += "->"
+		}
+	}
+	fmt.Println(format)
 }
